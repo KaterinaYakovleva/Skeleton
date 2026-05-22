@@ -21,4 +21,4 @@ function formatResponse(statusCode, message, data = null, error = null) {
   };
 }
 
-export default formatResponse;
+module.exports = formatResponse;

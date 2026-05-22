@@ -1,11 +1,8 @@
 const router = require("express").Router();
-import formatResponse from "../utils/formatResponse.js";
+const formatResponse = require("../utils/formatResponse.js");
+const cartRoutes = require("./cart.routes.js");
+const productsRoutes = require("./product.routes");
 
-// router.use("/flights", flightRoutes);
-// router.use("/auth", authRoutes);
+router.use("/cart", cartRoutes).use("/products", productsRoutes);
 
-router.use("*", (req, res) => {
-  res.status(404).json(formatResponse(404, "Not found"));
-});
-
-export default router;
+module.exports = router;
