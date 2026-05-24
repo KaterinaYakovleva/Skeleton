@@ -44,6 +44,4 @@ class CartController {
   }
 }
 
-const getAllCarts = CartController.getAllCarts;
-const getCartById = CartController.getCartById;
 module.exports = CartController;

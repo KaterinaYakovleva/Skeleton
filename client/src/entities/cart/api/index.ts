@@ -5,8 +5,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { handleAxiosError } from "../../../shared/utils/handleAxiosError";
 
 enum CART_API_ENDPOINTS {
-  GET_ALL = "/cart",
-  GET_BY_ID = "/one_cart",
+  GET_ALL = "/cart/all",
+  GET_BY_ID = "cart/:id",
   GET_MY = "/cart/my",
   ADD_ITEM = "/cart/items",
   REMOVE_ITEM = "/cart/delete_items",

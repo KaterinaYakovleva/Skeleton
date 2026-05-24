@@ -1,6 +1,6 @@
 require("dotenv").config();
-import { verify } from "jsonwebtoken";
-import formatResponse from "../utils/formatResponse.mjs";
+const jwt = require("jsonwebtoken");
+const formatResponse = require("../utils/formatResponse.js");
 
 function verifyAccessToken(req, res, next) {
   try {
@@ -9,7 +9,6 @@ function verifyAccessToken(req, res, next) {
     res.locals.user = user;
     next();
   } catch ({ message }) {
-    console.log("======verifyAccessToken=======>>>>>>>", message);
     res
       .status(403)
       .json(
@@ -17,10 +16,10 @@ function verifyAccessToken(req, res, next) {
           403,
           "Invalid access token",
           null,
-          "Invalid access token"
-        )
+          "Invalid access token",
+        ),
       );
   }
 }
 
-export default verifyAccessToken;
+module.exports = verifyAccessToken;

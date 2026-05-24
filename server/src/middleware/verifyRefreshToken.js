@@ -1,6 +1,6 @@
 require("dotenv").config();
-import { verify } from "jsonwebtoken";
-import formatResponse from "../utils/formatResponse.js";
+const jwt = require("jsonwebtoken");
+const formatResponse = require("../utils/formatResponse.js");
 
 function verifyRefreshToken(req, res, next) {
   try {
@@ -24,4 +24,4 @@ function verifyRefreshToken(req, res, next) {
   }
 }
 
-export default verifyRefreshToken;
+module.exports = verifyRefreshToken;

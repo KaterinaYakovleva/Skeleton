@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createContext, useReducer } from "react";
 import type { ReactNode, Dispatch } from "react";
-import type { ICartItem, ICart, CartArrayType } from "../model";
+import type { ICart, CartArrayType } from "../model";
 import { CART_ACTION_TYPE } from "../model";
 
 type CartState = {

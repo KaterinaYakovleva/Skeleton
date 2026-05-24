@@ -1,4 +1,5 @@
 import { cartReducer } from "../../entities/cart/slice/cartSlice";
+import { productReducer } from "../../entities/product/slice/productSlice";
 // import { notificationsReducer } from "@/features/notifications";
 import { configureStore } from "@reduxjs/toolkit";
 
@@ -7,6 +8,7 @@ const store = configureStore({
     // user: userReducer,
     // notifications: notificationsReducer,
     cart: cartReducer,
+    product: productReducer,
   },
 });
 
