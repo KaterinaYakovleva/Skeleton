@@ -4,17 +4,22 @@ import { CartPage } from "../../pages/CartPage/CartPage";
 import { CartProviderWrapper } from "../../entities/cart/providers/CartProviderWrapper";
 import { ProductPage } from "../../pages/ProductPage/ProductPage";
 import { ProductsPage } from "../../pages/ProductsPage/ProductsPage";
-// import { ProductCard } from "../../entities/product/ui/ProductCard/ProductCard";
+import Home from "../../pages/Home/Home";
+import Layout from "../layout/Layout";
+
 
 export default function Router(): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<CartProviderWrapper />}>
-          <Route path="/cart" element={<CartPage />}></Route>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/product/:id" element={<ProductPage />} />
         </Route>
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/product/:id" element={<ProductPage />} />
+        <Route element={<CartProviderWrapper />}>
+          <Route path="/cart" element={<CartPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

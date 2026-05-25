@@ -6,15 +6,14 @@ module.exports = {
     await queryInterface.bulkInsert(
       "Products",
       [
-        // Мягкая мебель
         {
           name: 'Диван "Монро" угловой',
           description:
             'Угловой диван с механизмом "еврокнижка", ткань велюр, наполнитель ППУ, цвет - бежевый. Спальное место 160x200 см.',
           price: 45990.0,
-          categoryId: 6, // Гостиная
+          categoryId: 6,
           stock: 15,
-          imageUrl: "/images/sofa-monro.jpg",
+          imageUrl: "/furniture/Images.jpg",
           sku: "SOFA-MONRO-001",
           isAvailable: true,
           createdAt: new Date(),
@@ -27,13 +26,12 @@ module.exports = {
           price: 18990.0,
           categoryId: 6, // Гостиная
           stock: 25,
-          imageUrl: "/images/chair-ernest.jpg",
+          imageUrl: "/furniture/image_2.jpg",
           sku: "CHAIR-ERNEST-002",
           isAvailable: true,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-        // Корпусная мебель
         {
           name: 'Шкаф-купе "Прованс"',
           description:
@@ -41,7 +39,7 @@ module.exports = {
           price: 38990.0,
           categoryId: 5, // Хранение
           stock: 10,
-          imageUrl: "/images/wardrobe-provence.jpg",
+          imageUrl: "/furniture/image_1.jpg",
           sku: "WARD-PROV-003",
           isAvailable: true,
           createdAt: new Date(),
@@ -54,7 +52,7 @@ module.exports = {
           price: 15990.0,
           categoryId: 5, // Хранение
           stock: 20,
-          imageUrl: "/images/chest-axel.jpg",
+          imageUrl: "/furniture/image_4.jpg",
           sku: "CHEST-AXEL-004",
           isAvailable: true,
           createdAt: new Date(),
@@ -68,7 +66,7 @@ module.exports = {
           price: 27990.0,
           categoryId: 3, // Спальня
           stock: 12,
-          imageUrl: "/images/bed-nevada.jpg",
+          imageUrl: "/furniture/image_1.jpg",
           sku: "BED-NEVADA-005",
           isAvailable: true,
           createdAt: new Date(),
@@ -81,7 +79,7 @@ module.exports = {
           price: 15990.0,
           categoryId: 7, // Матрасы
           stock: 30,
-          imageUrl: "/images/mattress-ortomax.jpg",
+          imageUrl: "/furniture/Images.jpg",
           sku: "MAT-ORTO-006",
           isAvailable: true,
           createdAt: new Date(),
@@ -95,7 +93,7 @@ module.exports = {
           price: 24990.0,
           categoryId: 4, // Столы и стулья
           stock: 18,
-          imageUrl: "/images/table-olivia.jpg",
+          imageUrl: "/furniture/image_2.jpg",
           sku: "TABLE-OLIV-007",
           isAvailable: true,
           createdAt: new Date(),
@@ -108,7 +106,7 @@ module.exports = {
           price: 17990.0,
           categoryId: 4, // Столы и стулья
           stock: 40,
-          imageUrl: "/images/chair-venice.jpg",
+          imageUrl: "/furniture/image_1.jpg",
           sku: "CHAIR-VEN-008",
           isAvailable: true,
           createdAt: new Date(),
@@ -122,7 +120,7 @@ module.exports = {
           price: 12990.0,
           categoryId: 8, // Офисная мебель
           stock: 25,
-          imageUrl: "/images/office-chair.jpg",
+          imageUrl: "/furniture/image_4.jpg",
           sku: "OFF-CHAIR-009",
           isAvailable: true,
           createdAt: new Date(),
@@ -135,7 +133,7 @@ module.exports = {
           price: 11990.0,
           categoryId: 8, // Офисная мебель
           stock: 22,
-          imageUrl: "/images/gamer-desk.jpg",
+          imageUrl: "/furniture/Images.jpg",
           sku: "DESK-GAMER-010",
           isAvailable: true,
           createdAt: new Date(),
@@ -149,7 +147,7 @@ module.exports = {
           price: 12990.0,
           categoryId: 9, // Детская мебель
           stock: 20,
-          imageUrl: "/images/baby-bed.jpg",
+          imageUrl: "/furniture/image_1.jpg",
           sku: "BABY-BED-011",
           isAvailable: true,
           createdAt: new Date(),
@@ -163,7 +161,7 @@ module.exports = {
           price: 58990.0,
           categoryId: 10, // Модульные системы
           stock: 8,
-          imageUrl: "/images/modular-wall.jpg",
+          imageUrl: "/furniture/image_2.jpg",
           sku: "MOD-WALL-012",
           isAvailable: true,
           createdAt: new Date(),
@@ -177,7 +175,7 @@ module.exports = {
           price: 4990.0,
           categoryId: 3, // Спальня
           stock: 35,
-          imageUrl: "/images/nightstand.jpg",
+          imageUrl: "/furniture/Images.jpg",
           sku: "STAND-NORD-013",
           isAvailable: true,
           createdAt: new Date(),
@@ -190,7 +188,7 @@ module.exports = {
           price: 3990.0,
           categoryId: 2, // Мягкая мебель
           stock: 45,
-          imageUrl: "/images/ottoman.jpg",
+          imageUrl: "/furniture/image_1.jpg",
           sku: "PUF-COMF-014",
           isAvailable: true,
           createdAt: new Date(),
@@ -203,7 +201,7 @@ module.exports = {
           price: 2990.0,
           categoryId: 5, // Хранение
           stock: 50,
-          imageUrl: "/images/shelf.jpg",
+          imageUrl: "/furniture/image_2.jpg",
           sku: "SHELF-ECO-015",
           isAvailable: true,
           createdAt: new Date(),
