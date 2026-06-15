@@ -42,6 +42,24 @@ class CartController {
         .json(formatResponse(500, "Internal server error", null, message));
     }
   }
+
+  //! временно
+  static async getActiveCart(req, res) {
+    try {
+      const cart = await CartService.getActiveCart();
+      if (!cart) {
+        return res
+          .status(404)
+          .json(formatResponse(404, "Активная корзина не найдена"));
+      }
+      res.status(200).json(formatResponse(200, "success", cart));
+    } catch ({ message }) {
+      console.error(message);
+      res
+        .status(500)
+        .json(formatResponse(500, "Internal server error", null, message));
+    }
+  }
 }
 
 module.exports = CartController;

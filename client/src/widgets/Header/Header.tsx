@@ -24,25 +24,25 @@ export default function Header() {
           <NavLink to="/account">
             <img
               className={styles.navigation__icon}
-              src="/header_icons/account.png"
+              src="/icons/account.png"
             ></img>
           </NavLink>
           <NavLink to="/search">
             <img
               className={styles.navigation__icon}
-              src="/header_icons/search.png"
+              src="/icons/search.png"
             ></img>
           </NavLink>
           <NavLink to="/favourites">
             <img
               className={styles.navigation__icon}
-              src="/header_icons/heart.png"
+              src="/icons/heart.png"
             ></img>
           </NavLink>
           <NavLink to="/cart">
             <img
               className={styles.navigation__icon}
-              src="/header_icons/cart.png"
+              src="/icons/cart.png"
             ></img>
           </NavLink>
         </nav>

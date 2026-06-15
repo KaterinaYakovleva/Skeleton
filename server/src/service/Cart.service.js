@@ -8,6 +8,13 @@ class CartService {
   static async getById(id) {
     return await Cart.findByPk(id);
   }
+  //* временно
+  static async getActiveCart() {
+    // Временно возвращаем первую активную корзину (id=1)
+    return await Cart.findByPk(1, {
+      include: [{ model: CartItem, include: [Product] }],
+    });
+  }
 }
 
 module.exports = CartService;

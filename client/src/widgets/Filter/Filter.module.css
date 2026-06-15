@@ -1,0 +1,41 @@
+.filter__container {
+  width: 100%;
+  background-color: #f9f1e7;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  padding: 25px 100px;
+  align-items: center;
+}
+
+.filter__pics,
+.filter__right_side {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.filter__icons {
+  width: 20px;
+  height: 20px;
+}
+
+.filter__pages__pics {
+  font-size: 16px;
+  color: #000000;
+  font-weight: 400;
+  display: flex;
+  gap: 10px;
+}
+
+.filter__line {
+  color: #9f9f9f;
+  font-size: 30px;
+}
+
+.filter__pages__number,
+.filter__pages {
+  font-size: 16px;
+  color: #000000;
+  font-weight: 400;
+}
