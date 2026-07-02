@@ -55,7 +55,10 @@ const cartSlice = createSlice({
       .addCase(fetchCartByIdThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.currentCart = action.payload.data;
+state.currentCart = {
+  ...action.payload.data,
+  items: action.payload.data?.items || [],
+};
       })
       .addCase(fetchCartByIdThunk.rejected, (state, action) => {
         state.isLoading = false;
@@ -68,7 +71,10 @@ const cartSlice = createSlice({
       .addCase(fetchMyCartThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.currentCart = action.payload.data;
+        state.currentCart = {
+          ...action.payload.data,
+          items: action.payload.data?.items || [],
+        };
       })
       .addCase(fetchMyCartThunk.rejected, (state, action) => {
         state.isLoading = false;
@@ -81,12 +87,18 @@ const cartSlice = createSlice({
       .addCase(addToCartThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.currentCart = action.payload.data;
+        state.currentCart = {
+          ...action.payload.data,
+          items: action.payload.data?.items || [],
+        };
         const index = state.carts.findIndex(
           (cart) => cart.id === action.payload.data.id,
         );
         if (index !== -1) {
-          state.carts[index] = action.payload.data;
+          state.carts[index] = {
+            ...action.payload.data,
+            items: action.payload.data?.items || [],
+          };
         }
       })
       .addCase(addToCartThunk.rejected, (state, action) => {
@@ -100,12 +112,18 @@ const cartSlice = createSlice({
       .addCase(removeFromCartThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.currentCart = action.payload.data;
+         state.currentCart = {
+           ...action.payload.data,
+           items: action.payload.data?.items || [],
+         };
         const index = state.carts.findIndex(
           (cart) => cart.id === action.payload.data.id,
         );
         if (index !== -1) {
-          state.carts[index] = action.payload.data;
+          state.carts[index] = {
+            ...action.payload.data,
+            items: action.payload.data?.items || [],
+          };
         }
       })
       .addCase(removeFromCartThunk.rejected, (state, action) => {
@@ -119,12 +137,18 @@ const cartSlice = createSlice({
       .addCase(updateCartItemQuantityThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.currentCart = action.payload.data;
+        state.currentCart = {
+          ...action.payload.data,
+          items: action.payload.data?.items || [],
+        };
         const index = state.carts.findIndex(
           (cart) => cart.id === action.payload.data.id,
         );
         if (index !== -1) {
-          state.carts[index] = action.payload.data;
+          state.carts[index] = {
+            ...action.payload.data,
+            items: action.payload.data?.items || [],
+          };
         }
       })
       .addCase(updateCartItemQuantityThunk.rejected, (state, action) => {
@@ -138,7 +162,10 @@ const cartSlice = createSlice({
       .addCase(clearCartThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.currentCart = action.payload.data;
+        state.currentCart = {
+          ...action.payload.data,
+          items: action.payload.data?.items || [],
+        };
       })
       .addCase(clearCartThunk.rejected, (state, action) => {
         state.isLoading = false;

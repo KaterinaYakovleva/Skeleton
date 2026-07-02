@@ -1,5 +1,5 @@
 .page {
-  max-width: 800px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 24px;
 }
@@ -10,8 +10,7 @@
   margin-bottom: 24px;
 }
 
-.backButton,
-.editButton {
+.backButton {
   padding: 8px 16px;
   border: none;
   border-radius: 8px;
@@ -20,16 +19,8 @@
   transition: 0.2s;
 }
 
-.backButton:hover,
-.editButton:hover {
+.backButton:hover {
   background-color: #e0e0e0;
-}
-
-.details {
-  margin-top: 32px;
-  padding: 16px;
-  background: #f9f9f9;
-  border-radius: 12px;
 }
 
 .loader,

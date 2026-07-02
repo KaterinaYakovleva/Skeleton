@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "../../app/store/store";
 import { fetchProductByIdThunk } from "../../entities/product/api";
-import { ProductCard } from "../../entities/product/ui/ProductCard/ProductCard";
+import { ProductDetails } from "../../entities/product/ui/ProductDetails/ProductDetails";
 import styles from "./ProductPage.module.css";
 
 export function ProductPage() {
@@ -43,11 +43,7 @@ export function ProductPage() {
         </button>
       </div>
 
-      <ProductCard
-        product={currentProduct}
-        onView={undefined}
-        onDelete={undefined}
-      />
+      <ProductDetails product={currentProduct} />
     </div>
   );
 }

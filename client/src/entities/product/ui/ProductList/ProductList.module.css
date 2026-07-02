@@ -1,0 +1,38 @@
+.container {
+  padding: 20px 70px;
+}
+
+.grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.loader,
+.error,
+.empty {
+  text-align: center;
+  padding: 48px;
+  font-size: 1.2rem;
+  grid-column: 1 / -1;
+}
+
+.error {
+  color: #d32f2f;
+}
+
+@media (max-width: 992px) {
+  .container {
+    padding: 20px 40px;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 20px 15px;
+  }
+
+  .grid {
+    gap: 15px;
+  }
+}

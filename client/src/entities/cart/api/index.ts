@@ -4,13 +4,11 @@ import type { IServerResponse } from "../../../shared/types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { handleAxiosError } from "../../../shared/utils/handleAxiosError";
 
+const CART_BASE = "/cart-item";
+
 enum CART_API_ENDPOINTS {
-  GET_ALL = "/cart/all",
-  GET_BY_ID = "cart/:id",
+  GET_ALL = `${CART_BASE}/all`,
   GET_MY = "/cart/my",
-  ADD_ITEM = "/cart/items",
-  REMOVE_ITEM = "/cart/delete_items",
-  UPDATE_ITEM = "/cart/update_items",
   CLEAR = "/cart/clear",
 }
 
@@ -43,9 +41,7 @@ export const fetchCartByIdThunk = createAsyncThunk<
   { rejectValue: IServerResponse }
 >(CART_THUNK_TYPES.FETCH_CART_BY_ID, async (id, { rejectWithValue }) => {
   try {
-    const { data } = await axiosInstance.get(
-      `${CART_API_ENDPOINTS.GET_BY_ID}/${id}`,
-    );
+    const { data } = await axiosInstance.get(`${CART_BASE}/${id}`);
     return data;
   } catch (error) {
     return rejectWithValue(handleAxiosError(error));
@@ -67,13 +63,14 @@ export const fetchMyCartThunk = createAsyncThunk<
 
 export const addToCartThunk = createAsyncThunk<
   IServerResponse<ICart>,
-  { productId: number; quantity: number },
+  { cartId: number; productId: number; quantity: number },
   { rejectValue: IServerResponse }
 >(
   CART_THUNK_TYPES.ADD_TO_CART,
-  async ({ productId, quantity }, { rejectWithValue }) => {
+  async ({cartId, productId, quantity }, { rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.post(CART_API_ENDPOINTS.ADD_ITEM, {
+      const { data } = await axiosInstance.post(CART_BASE, {
+        cartId,
         productId,
         quantity,
       });
@@ -90,9 +87,7 @@ export const removeFromCartThunk = createAsyncThunk<
   { rejectValue: IServerResponse }
 >(CART_THUNK_TYPES.REMOVE_FROM_CART, async (itemId, { rejectWithValue }) => {
   try {
-    const { data } = await axiosInstance.delete(
-      `${CART_API_ENDPOINTS.REMOVE_ITEM}/${itemId}`,
-    );
+    const { data } = await axiosInstance.delete(`${CART_BASE}/${itemId}`);
     return data;
   } catch (error) {
     return rejectWithValue(handleAxiosError(error));
@@ -107,12 +102,9 @@ export const updateCartItemQuantityThunk = createAsyncThunk<
   CART_THUNK_TYPES.UPDATE_QUANTITY,
   async ({ itemId, quantity }, { rejectWithValue }) => {
     try {
-      const { data } = await axiosInstance.put(
-        `${CART_API_ENDPOINTS.UPDATE_ITEM}/${itemId}`,
-        {
-          quantity,
-        },
-      );
+      const { data } = await axiosInstance.put(`${CART_BASE}/${itemId}`, {
+        quantity,
+      });
       return data;
     } catch (error) {
       return rejectWithValue(handleAxiosError(error));

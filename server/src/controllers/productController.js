@@ -45,12 +45,20 @@ class ProductController {
   }
 
   static async createProduct(req, res) {
-    const { name, description, categoryId, stock, imageUrl, isAvailable } =
-      req.body;
+    const {
+      name,
+      description,
+      price,
+     categoryId,
+      stock,
+      imageUrl,
+      isAvailable,
+    } = req.body;
     const { user } = res.locals;
     const { isValid, error } = ProductValidator.validate({
       name,
       description,
+      price,
       categoryId,
       stock,
       imageUrl,
@@ -66,6 +74,7 @@ class ProductController {
       const newProduct = await ProductService.create({
         name,
         description,
+        price,
         categoryId,
         stock,
         imageUrl,
@@ -99,6 +108,7 @@ class ProductController {
     const { isValid, error } = ProductValidator.validate({
       name,
       description,
+      price,
       categoryId,
       stock,
       imageUrl,
@@ -131,6 +141,7 @@ class ProductController {
       const updatedProduct = await ProductService.update(+id, {
         name,
         description,
+        price,
         categoryId,
         stock,
         imageUrl,

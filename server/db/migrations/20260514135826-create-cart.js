@@ -22,9 +22,6 @@ module.exports = {
       status: {
         type: Sequelize.STRING,
       },
-      sessionId: {
-        type: Sequelize.STRING,
-      },
       createdAt: {
         allowNull: false,
         defaultValue: new Date(),

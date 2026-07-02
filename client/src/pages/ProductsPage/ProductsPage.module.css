@@ -111,30 +111,3 @@
     font-size: 14px;
   }
 }
-
-.products__container {
-  padding: 20px 70px;
-}
-
-.general {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  margin-top: 20px;
-}
-
-@media (max-width: 992px) {
-  .products__container {
-    padding: 20px 40px;
-  }
-}
-
-@media (max-width: 576px) {
-  .products__container {
-    padding: 20px 15px;
-  }
-
-  .general {
-    gap: 15px;
-  }
-}

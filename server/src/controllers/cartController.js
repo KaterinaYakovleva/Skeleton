@@ -46,7 +46,13 @@ class CartController {
   //! временно
   static async getActiveCart(req, res) {
     try {
-      const cart = await CartService.getActiveCart();
+      const userId = 2;
+       if (!userId) {
+         return res
+           .status(400)
+           .json(formatResponse(400, "userId не передан", null));
+       }
+      const cart = await CartService.getOrCreateActiveCart(userId);
       if (!cart) {
         return res
           .status(404)

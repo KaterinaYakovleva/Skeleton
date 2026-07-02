@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   class Cart extends Model {
     static associate({ User, CartItem }) {
       Cart.belongsTo(User, { foreignKey: "userId" });
-      Cart.hasMany(CartItem, { foreignKey: "cartId" });
+      Cart.hasMany(CartItem, { foreignKey: "cartId", as: "items" });
     }
   }
   Cart.init(
@@ -16,10 +16,6 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.ENUM("active", "ordered", "abandoned"),
         defaultValue: "active",
-      },
-      sessionId: {
-        type: DataTypes.STRING,
-        allowNull: true,
       },
     },
     {

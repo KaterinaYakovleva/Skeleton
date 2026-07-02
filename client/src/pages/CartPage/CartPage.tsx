@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect } from "react";
 import type { JSX } from "react";
-import { Link, useParams } from "react-router";
+import { Link } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchCartByIdThunk,
   removeFromCartThunk,
+  fetchMyCartThunk,
 } from "../../entities/cart/api/index";
 import type { RootState, AppDispatch } from "../../app/store/store";
+import type { ICartItem } from "../../entities/cart/model";
 import styles from "./CartPage.module.css";
 import CartTotal from "../../widgets/CartTotal/CartTotal";
 
 export function CartPage(): JSX.Element {
-  const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const {
     currentCart: cart,
@@ -21,26 +21,31 @@ export function CartPage(): JSX.Element {
   } = useSelector((state: RootState) => state.cart);
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchCartByIdThunk(Number(id)));
-    }
-  }, [id, dispatch]);
+    dispatch(fetchMyCartThunk());
+  }, [dispatch]);
 
   const handleDeleteCartItem = (itemId: number) => {
     dispatch(removeFromCartThunk(itemId));
   };
 
-  // if (isLoading) {
-  //   return <div>Загрузка...</div>;
-  // }
+  if (isLoading) {
+    return <div className={styles.loader}>Загрузка...</div>;
+  }
 
-  // if (error) {
-  //   return <div>Ошибка: {error}</div>;
-  // }
+  if (error) {
+    return <div className={styles.error}>Ошибка: {error}</div>;
+  }
 
-  // if (!cart) {
-  //   return <div>Корзина не найдена</div>;
-  // }
+  if (!cart) {
+    return <div className={styles.notFound}>Корзина не найдена</div>;
+  }
+
+  // ✅ Защита от undefined и правильное получение items
+  const cartItems = cart?.items || [];
+
+  console.log("📦 cart:", cart);
+  console.log("📦 cartItems:", cartItems);
+  console.log("📦 cartItems length:", cartItems.length);
 
   return (
     <div className={styles.container__cart}>
@@ -62,56 +67,68 @@ export function CartPage(): JSX.Element {
         </div>
       </div>
       <div className={styles.cart__content__container}>
-        <table className={styles.cart__table__container}>
-          <thead className={styles.cart__table__mainheader}>
-            <tr className={styles.cart__table__group__header}>
-              <th className={styles.cart__table__header}>Товар</th>
-              <th className={styles.cart__table__header}>Цена</th>
-              <th className={styles.cart__table__header}>Количество</th>
-              <th className={styles.cart__table__header}>Стоимость</th>
-              <th className={styles.cart__table__header}></th>
-            </tr>
-          </thead>
-          <tbody>
-            {cart?.items.map((item) => (
-              <tr key={item.id}>
-                <td className={styles.cart__table__product}>
-                  <div className={styles.cart__product__info}>
-                    <img
-                      src={item.product.image}
-                      alt={item.product.title}
-                      className={styles.cart__product__image}
-                    />
-                    <span>{item.product.title}</span>
-                  </div>
-                </td>
-                <td className={styles.cart__table__price}>
-                  {item.price.toLocaleString()} ₽
-                </td>
-                <td className={styles.cart__table__quantity}>
-                  {item.quantity}
-                </td>
-                <td className={styles.cart__table__total}>
-                  {(item.price * item.quantity).toLocaleString()} ₽
-                </td>
-                <td className={styles.cart__table__delete}>
-                  <button
-                    className={styles.cart__table__delete_btn}
-                    type="button"
-                    title="Удалить товар"
-                    onClick={() => handleDeleteCartItem(item.id)}
-                  >
-                    <img
-                      className={styles.cart__table__delete_icon}
-                      src="./icons/cart_delete.png"
-                      alt="Удалить товар"
-                    />
-                  </button>
-                </td>
+        {!cartItems || cartItems.length === 0 ? (
+          <div className={styles.emptyCart}>
+            <p>Корзина пуста</p>
+            <Link to="/products" className={styles.continueShopping}>
+              Продолжить покупки
+            </Link>
+          </div>
+        ) : (
+          <table className={styles.cart__table__container}>
+            <thead className={styles.cart__table__mainheader}>
+              <tr className={styles.cart__table__group__header}>
+                <th className={styles.cart__table__header}>Товар</th>
+                <th className={styles.cart__table__header}>Цена</th>
+                <th className={styles.cart__table__header}>Количество</th>
+                <th className={styles.cart__table__header}>Стоимость</th>
+                <th className={styles.cart__table__header}></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {cartItems.map((item: any) => {
+                const product = item.Product || item.product || {};
+                return (
+                  <tr key={item.id}>
+                    <td className={styles.cart__table__product}>
+                      <div className={styles.cart__product__info}>
+                        <img
+                          src={product.imageUrl || "/placeholder.jpg"}
+                          alt={product.name || "Товар"}
+                          className={styles.cart__product__image}
+                        />
+                        <span>{product.name || "Товар"}</span>
+                      </div>
+                    </td>
+                    <td className={styles.cart__table__price}>
+                      {Number(item.price).toLocaleString()} ₽
+                    </td>
+                    <td className={styles.cart__table__quantity}>
+                      {item.quantity}
+                    </td>
+                    <td className={styles.cart__table__total}>
+                      {(Number(item.price) * item.quantity).toLocaleString()} ₽
+                    </td>
+                    <td className={styles.cart__table__delete}>
+                      <button
+                        className={styles.cart__table__delete_btn}
+                        type="button"
+                        title="Удалить товар"
+                        onClick={() => handleDeleteCartItem(item.id)}
+                      >
+                        <img
+                          className={styles.cart__table__delete_icon}
+                          src="/icons/cart_delete.png"
+                          alt="Удалить товар"
+                        />
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
         <CartTotal />
       </div>
     </div>
