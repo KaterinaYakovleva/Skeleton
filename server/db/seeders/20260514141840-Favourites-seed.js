@@ -4,7 +4,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert(
-      "Favorites",
+      "Favourites",
       [
         // Иван
         {
@@ -59,6 +59,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("Favorites", null, {});
+    await queryInterface.bulkDelete("Favourites", null, {});
   },
 };

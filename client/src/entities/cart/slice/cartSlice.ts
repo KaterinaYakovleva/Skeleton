@@ -42,7 +42,7 @@ const cartSlice = createSlice({
       .addCase(fetchCartsThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.carts = action.payload.data;
+        state.carts = action.payload.data || [];
       })
       .addCase(fetchCartsThunk.rejected, (state, action) => {
         state.isLoading = false;
@@ -55,10 +55,11 @@ const cartSlice = createSlice({
       .addCase(fetchCartByIdThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-state.currentCart = {
-  ...action.payload.data,
-  items: action.payload.data?.items || [],
-};
+        state.currentCart = {
+          ...action.payload.data,
+          items: action.payload.data?.items || [],
+          total: action.payload.data?.total || 0,
+        };
       })
       .addCase(fetchCartByIdThunk.rejected, (state, action) => {
         state.isLoading = false;
@@ -74,6 +75,7 @@ state.currentCart = {
         state.currentCart = {
           ...action.payload.data,
           items: action.payload.data?.items || [],
+          total: action.payload.data?.total || 0,
         };
       })
       .addCase(fetchMyCartThunk.rejected, (state, action) => {
@@ -90,6 +92,7 @@ state.currentCart = {
         state.currentCart = {
           ...action.payload.data,
           items: action.payload.data?.items || [],
+          total: action.payload.data?.total || 0,
         };
         const index = state.carts.findIndex(
           (cart) => cart.id === action.payload.data.id,
@@ -98,6 +101,7 @@ state.currentCart = {
           state.carts[index] = {
             ...action.payload.data,
             items: action.payload.data?.items || [],
+            total: action.payload.data?.total || 0,
           };
         }
       })
@@ -112,10 +116,11 @@ state.currentCart = {
       .addCase(removeFromCartThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-         state.currentCart = {
-           ...action.payload.data,
-           items: action.payload.data?.items || [],
-         };
+        state.currentCart = {
+          ...action.payload.data,
+          items: action.payload.data?.items || [],
+          total: action.payload.data?.total || 0,
+        };
         const index = state.carts.findIndex(
           (cart) => cart.id === action.payload.data.id,
         );
@@ -123,6 +128,7 @@ state.currentCart = {
           state.carts[index] = {
             ...action.payload.data,
             items: action.payload.data?.items || [],
+            total: action.payload.data?.total || 0,
           };
         }
       })
@@ -140,6 +146,7 @@ state.currentCart = {
         state.currentCart = {
           ...action.payload.data,
           items: action.payload.data?.items || [],
+          total: action.payload.data?.total || 0,
         };
         const index = state.carts.findIndex(
           (cart) => cart.id === action.payload.data.id,
@@ -148,6 +155,7 @@ state.currentCart = {
           state.carts[index] = {
             ...action.payload.data,
             items: action.payload.data?.items || [],
+            total: action.payload.data?.total || 0,
           };
         }
       })
@@ -165,6 +173,7 @@ state.currentCart = {
         state.currentCart = {
           ...action.payload.data,
           items: action.payload.data?.items || [],
+          total: action.payload.data?.total || 0,
         };
       })
       .addCase(clearCartThunk.rejected, (state, action) => {

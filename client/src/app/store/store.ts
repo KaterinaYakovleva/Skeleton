@@ -2,6 +2,7 @@ import { cartReducer } from "../../entities/cart/slice/cartSlice";
 import { productReducer } from "../../entities/product/slice/productSlice";
 // import { notificationsReducer } from "@/features/notifications";
 import { configureStore } from "@reduxjs/toolkit";
+import { favouritesReducer } from "../../entities/favourites/slice/index";
 
 const store = configureStore({
   reducer: {
@@ -9,6 +10,7 @@ const store = configureStore({
     // notifications: notificationsReducer,
     cart: cartReducer,
     product: productReducer,
+    favourites: favouritesReducer,
   },
 });
 

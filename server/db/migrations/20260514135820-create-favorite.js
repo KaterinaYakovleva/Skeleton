@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Favorites", {
+    await queryInterface.createTable("Favourites", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -38,13 +38,12 @@ module.exports = {
       },
     });
 
-    // Добавляем уникальный индекс для пары (userId, productId)
-    await queryInterface.addIndex("Favorites", ["userId", "productId"], {
+    await queryInterface.addIndex("Favourites", ["userId", "productId"], {
       unique: true,
-      name: "favorites_user_product_unique",
+      name: "favourites_user_product_unique",
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Favorites");
+    await queryInterface.dropTable("Favoruites");
   },
 };

@@ -35,3 +35,49 @@
   width: 23px;
   height: 23px;
 }
+
+.cart__icon__wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.cart__badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #E97171;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.cart__badge {
+  animation: badgePop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes badgePop {
+  0% {
+    transform: scale(0);
+  }
+  80% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cart__badge--large {
+  width: 22px;
+  height: 22px;
+  font-size: 10px;
+}

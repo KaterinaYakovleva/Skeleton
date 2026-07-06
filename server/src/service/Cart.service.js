@@ -40,13 +40,23 @@ class CartService {
         userId,
         status: "active",
       });
+      return {
+        ...cart.toJSON(),
+        items: [],
+        total: 0,
+      };
     }
 
-    return cart;
+    const cartData = cart.toJSON();
+    cartData.total = cartData.items.reduce((sum, item) => {
+      return sum + Number(item.price) * Number(item.quantity);
+    }, 0);
+
+    return cartData;
   }
 
   static async getCartWithItems(cartId) {
-    return await Cart.findByPk(cartId, {
+    const cart = await Cart.findByPk(cartId, {
       include: [
         {
           model: CartItem,
@@ -55,6 +65,39 @@ class CartService {
         },
       ],
     });
+
+    if (!cart) {
+      return null;
+    }
+
+    const cartData = cart.toJSON();
+    cartData.total = cartData.items.reduce((sum, item) => {
+      return sum + Number(item.price) * Number(item.quantity);
+    }, 0);
+
+    return cartData;
+  }
+
+  static async getTotalSum(cartId) {
+    const cart = await Cart.findByPk(cartId, {
+      include: [
+        {
+          model: CartItem,
+          as: "items",
+          include: [Product],
+        },
+      ],
+    });
+
+    if (!cart) {
+      return 0;
+    }
+
+    const total = cart.items.reduce((sum, item) => {
+      return sum + Number(item.price) * Number(item.quantity);
+    }, 0);
+
+    return total;
   }
 }
 

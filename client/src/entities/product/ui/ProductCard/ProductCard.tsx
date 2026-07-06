@@ -1,12 +1,17 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { IProduct } from "../../model";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import type { AppDispatch, RootState } from "../../../../app/store/store";
 import { addToCartThunk } from "../../../cart/api";
+import {
+  addToFavouritesThunk,
+  removeFromFavouritesThunk,
+} from "../../../favourites/index";
+import { useSelector } from "react-redux";
+import type { IFavourite } from "../../../favourites/index";
 import styles from "./ProductCard.module.css";
 import ShareIcon from "@mui/icons-material/Share";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavouriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 interface ProductCardProps {
   product: IProduct;
@@ -16,6 +21,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product, onDelete, onView }: ProductCardProps) {
   const dispatch = useDispatch<AppDispatch>();
+  const { favourites } = useSelector((state: RootState) => state.favourites);
   // const { currentCart, isLoading } = useSelector(
   //   (state: RootState) => state.cart,
   // );
@@ -24,29 +30,47 @@ export function ProductCard({ product, onDelete, onView }: ProductCardProps) {
       onView(product.id);
     }
   };
-  
 
-  const handleAddToCartClick = (e:React.MouseEvent) => {
+  const handleAddToCartClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     const CART_ID = 1;
-     dispatch(
-       addToCartThunk({
-         cartId: CART_ID,
-         productId: product.id,
-         quantity: 1,
-       }),
-     )
-       .unwrap()
-       .then((response) => {
-         console.log("Товар добавлен в корзину:", response);
-         // Можно добавить уведомление или тост
-         // toast.success("Товар добавлен в корзину!");
-       })
-       .catch((error) => {
-         console.error("Ошибка добавления в корзину:", error);
-         // Можно показать ошибку
-         // toast.error("Не удалось добавить товар");
-       });
+    dispatch(
+      addToCartThunk({
+        cartId: CART_ID,
+        productId: product.id,
+        quantity: 1,
+      }),
+    )
+      .unwrap()
+      .then((response) => {
+        console.log("Товар добавлен в корзину:", response);
+        // Можно добавить уведомление или тост
+        // toast.success("Товар добавлен в корзину!");
+      })
+      .catch((error) => {
+        console.error("Ошибка добавления в корзину:", error);
+        // Можно показать ошибку
+        // toast.error("Не удалось добавить товар");
+      });
+  };
+
+  const isFavourite = favourites.some(
+    (fav: IFavourite) => fav.productId === product.id,
+  );
+
+  const handleToggleFavourite = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    if (isFavourite) {
+      const favorite = favourites.find(
+        (fav: IFavourite) => fav.productId === product.id,
+      );
+      if (favorite) {
+        dispatch(removeFromFavouritesThunk(favorite.id));
+      }
+    } else {
+      dispatch(addToFavouritesThunk({ productId: product.id }));
+    }
   };
 
   return (
@@ -81,14 +105,8 @@ export function ProductCard({ product, onDelete, onView }: ProductCardProps) {
             Сравнить
           </button>
 
-          <button
-            className={styles.actionBtn}
-            onClick={(e) => {
-              e.stopPropagation();
-              console.log("Like:", product.id);
-            }}
-          >
-            <FavoriteBorderIcon />В избранное
+          <button className={styles.actionBtn} onClick={handleToggleFavourite}>
+            <FavouriteBorderIcon /> {isFavourite ? "В избранном" : "В избранное"}
           </button>
         </div>
       </div>

@@ -6,6 +6,7 @@ import { ProductPage } from "../../pages/ProductPage/ProductPage";
 import { ProductsPage } from "../../pages/ProductsPage/ProductsPage";
 import Home from "../../pages/Home/Home";
 import Layout from "../layout/Layout";
+import FavouritesPage from "../../pages/FavouritesPage/FavouritesPage";
 
 export default function Router(): JSX.Element {
   return (
@@ -14,12 +15,12 @@ export default function Router(): JSX.Element {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<ProductsPage />} />
-          <Route path="/product/:id" element={<ProductPage />} /> 
+          <Route path="/product/:id" element={<ProductPage />} />
           <Route element={<CartProviderWrapper />}>
-          <Route path="/cart" element={<CartPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/favourites" element={<FavouritesPage />} />
+          </Route>
         </Route>
-        </Route>
-       
       </Routes>
     </BrowserRouter>
   );

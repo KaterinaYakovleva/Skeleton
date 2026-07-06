@@ -1,19 +1,19 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect } from "react";
 import type { JSX } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeFromCartThunk,
   fetchMyCartThunk,
 } from "../../entities/cart/api/index";
 import type { RootState, AppDispatch } from "../../app/store/store";
-import type { ICartItem } from "../../entities/cart/model";
+import type { ICartItem, ICartProduct } from "../../entities/cart/model";
 import styles from "./CartPage.module.css";
 import CartTotal from "../../widgets/CartTotal/CartTotal";
 
 export function CartPage(): JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const {
     currentCart: cart,
     isLoading,
@@ -28,6 +28,10 @@ export function CartPage(): JSX.Element {
     dispatch(removeFromCartThunk(itemId));
   };
 
+  const handleProductClick = (productId: number) => {
+    navigate(`/product/${productId}`);
+  };
+
   if (isLoading) {
     return <div className={styles.loader}>Загрузка...</div>;
   }
@@ -40,12 +44,11 @@ export function CartPage(): JSX.Element {
     return <div className={styles.notFound}>Корзина не найдена</div>;
   }
 
-  // ✅ Защита от undefined и правильное получение items
   const cartItems = cart?.items || [];
 
-  console.log("📦 cart:", cart);
-  console.log("📦 cartItems:", cartItems);
-  console.log("📦 cartItems length:", cartItems.length);
+  const getProduct = (item: ICartItem): ICartProduct => {
+    return (item.Product || item.product || {}) as ICartProduct;
+  };
 
   return (
     <div className={styles.container__cart}>
@@ -86,12 +89,16 @@ export function CartPage(): JSX.Element {
               </tr>
             </thead>
             <tbody>
-              {cartItems.map((item: any) => {
-                const product = item.Product || item.product || {};
+              {cartItems.map((item: ICartItem) => {
+                const product = getProduct(item);
                 return (
                   <tr key={item.id}>
                     <td className={styles.cart__table__product}>
-                      <div className={styles.cart__product__info}>
+                      <div
+                        className={styles.cart__product__info}
+                        onClick={() => handleProductClick(item.productId)}
+                        style={{ cursor: "pointer" }}
+                      >
                         <img
                           src={product.imageUrl || "/placeholder.jpg"}
                           alt={product.name || "Товар"}
